@@ -1,4 +1,9 @@
 fastapi
 uvicorn[standard]
 motor
-pydantic-settings
+
+pymongo
+passlib[bcrypt]
+python-jose[cryptography]
+email-validator
+bcrypt

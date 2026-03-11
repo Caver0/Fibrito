@@ -1,14 +1,11 @@
-import numpy as np
-from array import array
-
 class Usuario:
-    def __init__(self, id_usuario: int, name: str, email:str, password: str, preferencias: array, alergias: array, celiaco: bool):
+    def __init__(self, id_usuario: int, name: str, email: str, password: str, preferencias: list, alergias: list, celiaco: bool):
         self.id_usuario = id_usuario
         self.name = name
         self.email = email
         self.password = password
-        self.preferencias = preferencias
-        self.alergias = alergias
+        self.preferencias = list(preferencias) if preferencias is not None else []
+        self.alergias = list(alergias) if alergias is not None else []
         self.celiaco = celiaco
     
     def get(self):
@@ -17,8 +14,8 @@ class Usuario:
             "name": self.name,
             "email": self.email,
             "password": self.password,
-            "preferencias": self.preferencias.tolist() if isinstance(self.preferencias, np.ndarray) else self.preferencias,
-            "alergias": self.alergias.tolist() if isinstance(self.alergias, np.ndarray) else self.alergias,
+            "preferencias": self.preferencias,
+            "alergias": self.alergias,
             "celiaco": self.celiaco
         }
     

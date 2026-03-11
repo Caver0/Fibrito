@@ -18,8 +18,10 @@ services:
     depends_on:
       - mongo
     environment:
-      MONGO_URI: mongodb://admin:adminpass@mongo:27017
+
+      MONGO_URI: mongodb://admin:adminpass@mongo:27017/?authSource=admin
       MONGO_DB: fibrito
+      SPOONACULAR_API_KEY: ${SPOONACULAR_API_KEY}
     ports:
       - "8000:8000"
     volumes:
