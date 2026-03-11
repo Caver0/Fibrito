@@ -1,5 +1,9 @@
 fastapi
 uvicorn[standard]
 motor
-pydantic-settings
-requests
+
+pymongo
+passlib[bcrypt]
+python-jose[cryptography]
+email-validator
+bcrypt
