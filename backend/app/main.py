@@ -1,14 +1,10 @@
-import os
-
 from fastapi import FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from app.api.users import router as users_router
+from app.core.config import settings
 
 app = FastAPI(title="Fibrito API")
-
-MONGO_URI = os.getenv("MONGO_URI")
-MONGO_DB = os.getenv("MONGO_DB", "fibrito")
 
 client = None
 db = None
@@ -17,8 +13,12 @@ db = None
 @app.on_event("startup")
 async def startup():
     global client, db
-    client = AsyncIOMotorClient(MONGO_URI)
-    db = client[MONGO_DB]
+    if not settings.mongo_uri:
+        raise RuntimeError("MONGO_URI no esta configurado")
+
+    client = AsyncIOMotorClient(settings.mongo_uri)
+    db = client[settings.mongo_db]
+    await db["users"].create_index("email", unique=True)
     app.state.db = db
 
 
